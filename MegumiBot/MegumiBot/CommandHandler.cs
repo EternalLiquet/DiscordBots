@@ -46,11 +46,6 @@ namespace MegumiBot
         {
             var guildName = user.Guild.Name;
             var channel = user.Guild.DefaultChannel;
-            if (channel == null && user.Guild.Id == 349507304263254016)
-            {
-                channel = _client.GetChannel(349507304263254017) as SocketTextChannel;
-            }
-            Console.WriteLine(channel.Name);
             await channel.SendFileAsync(_introPic.createPic(user.Username, guildName, user.GetAvatarUrl(), megumiPicToUse), $"Welcome to {guildName}, {user.Mention}!", false);
             megumiPicToUse++;
             megumiPicToUse = megumiPicToUse % _introPic.megumiPicsLength();

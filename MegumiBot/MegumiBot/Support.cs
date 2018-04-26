@@ -21,7 +21,17 @@ namespace MegumiBot
                 Directory.CreateDirectory(config.Get("botFilesPath"));
             }
 
-            switch(config.Get("botRunEnvironment"))
+            if (!Directory.Exists(config.Get("botFilesPath") + config.Get("botAnnouncementPath")))
+            {
+                Directory.CreateDirectory(config.Get("botFilesPath") + config.Get("botAnnouncementPath"));
+            }
+
+            if (!Directory.Exists(config.Get("botFilesPath") + config.Get("botAnnouncementPath") + config.Get("botWhereIsLiquetPath")))
+            {
+                Directory.CreateDirectory(config.Get("botFilesPath") + config.Get("botAnnouncementPath") + config.Get("botWhereIsLiquetPath"));
+            }
+
+            switch (config.Get("botRunEnvironment"))
             {
                 case "Prod":
                     botToken = config.Get("botTokenProd");
