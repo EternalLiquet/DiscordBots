@@ -20,9 +20,10 @@ namespace MegumiBot.Modules
         [Command("IAm")]
         public async Task EditWhereCommand([Remainder] string whereText)
         {
-            if (Context.User.Id.Equals(devDiscordID))
+            Console.WriteLine($"{devDiscordID} =/= {Context.User.Id}");
+            if (Context.User.Id.Equals(ulong.Parse(devDiscordID)))
             {
-                string filePath = botAnnouncementPath + Support.config.Get("botWhereIsLiquetPath") + "whereisliquet.katofile";
+                string filePath = botAnnouncementPath + Support.config.Get("botWhereIsLiquetPath") + "/whereisliquet.katofile";
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
@@ -43,7 +44,7 @@ namespace MegumiBot.Modules
         [Remarks("~WhereIsLiquet?")]
         public async Task AnnounceLiquetCommand()
         {
-            string filePath = botAnnouncementPath + Support.config.Get("botWhereIsLiquetPath") + "whereisliquet.katofile";
+            string filePath = botAnnouncementPath + Support.config.Get("botWhereIsLiquetPath") + "/whereisliquet.katofile";
             if (File.Exists(filePath))
             {
                 StreamReader sr = new StreamReader(filePath);

@@ -98,7 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandHandler.cs" />
+    <Compile Include="Util\CommandHandler.cs" />
     <Compile Include="Modules\AdministratorModule.cs" />
     <Compile Include="Modules\AnnouncementModule.cs" />
     <Compile Include="Modules\HelpModule.cs" />
@@ -106,7 +106,7 @@
     <Compile Include="Modules\SocialModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Support.cs" />
+    <Compile Include="Util\Support.cs" />
     <Compile Include="Util\IntroPic.cs" />
   </ItemGroup>
   <ItemGroup>
