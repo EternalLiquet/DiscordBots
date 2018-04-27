@@ -36,7 +36,7 @@ namespace MonikaBot
 
             await _client.LoginAsync(TokenType.Bot, _token);
             await _client.StartAsync();
-            await _client.SetGameAsync("~help for commands!");
+            await _client.SetGameAsync("I just give out disclaimers lol");
 
             _handler = new CommandHandler();
 
