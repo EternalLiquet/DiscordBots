@@ -15,7 +15,7 @@ namespace MegumiBot.Modules
     {
 
         private string devDiscordID = Support.config.Get("devDiscordID");
-        private string botAnnouncementPath = Support.config.Get("botFilesPath") + Support.config.Get("botAnnouncementPath");
+        private string botAnnouncementPath = Support.config.Get("botFilesPath") + Support.config.Get("botAnnouncementsPath");
 
         [Command("IAm")]
         public async Task EditWhereCommand([Remainder] string whereText)
@@ -42,6 +42,7 @@ namespace MegumiBot.Modules
         [Command("WhereIsLiquet?")]
         [Summary("I will let you know where my developer is at the moment!")]
         [Remarks("~WhereIsLiquet?")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task AnnounceLiquetCommand()
         {
             string filePath = botAnnouncementPath + Support.config.Get("botWhereIsLiquetPath") + "/whereisliquet.katofile";

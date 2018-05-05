@@ -18,6 +18,7 @@ namespace MegumiBot.Modules
         [Command("dev")]
         [Summary("I will tag my amazing developer")]
         [Remarks("~dev")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task DeveloperCommand()
         {
             await Context.Channel.SendMessageAsync($"<@{devDiscordID}> is my developer and the person who turned me into a heroine that everyone is jealous of! " +
@@ -27,6 +28,7 @@ namespace MegumiBot.Modules
         [Command("socialmedia")]
         [Summary("I will give you links to my developer's social media accounts")]
         [Remarks("~socialmedia")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task SocialMediaCommand()
         {
             await Context.Channel.SendMessageAsync($"Feel free to follow my developer, <@{devDiscordID}>!" +
@@ -38,6 +40,7 @@ namespace MegumiBot.Modules
         [Command("support")]
         [Summary("I will give you the information to go to my support center/home discord server, Cherry Blessing!")]
         [Remarks("~support")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task MegumiSupportDiscordServer()
         {
             EmbedBuilder embedSupportServer;

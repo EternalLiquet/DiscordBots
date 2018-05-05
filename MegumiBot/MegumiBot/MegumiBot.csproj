@@ -98,6 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\IntroductionPicModule.cs" />
     <Compile Include="Util\CommandHandler.cs" />
     <Compile Include="Modules\AdministratorModule.cs" />
     <Compile Include="Modules\AnnouncementModule.cs" />

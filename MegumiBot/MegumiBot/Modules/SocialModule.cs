@@ -13,6 +13,7 @@ namespace MegumiBot.Modules
         [Command("hello")]
         [Summary("I will say hello to you!")]
         [Remarks("~hello")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task HelloCommand()
         {
             await ReplyAsync($"Hello {Context.User.Mention}!");
@@ -21,6 +22,7 @@ namespace MegumiBot.Modules
         [Command("noticeme")]
         [Summary("I will let your senpai know that you want to be noticed!")]
         [Remarks("~noticeme @User")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task NoticeMeCommand(SocketGuildUser user)
         {
             if (user == null)
@@ -36,6 +38,7 @@ namespace MegumiBot.Modules
         [Command("goodmorning")]
         [Summary("I will say good morning to someone for you!")]
         [Remarks("~goodmorning, ~goodmorning here, or ~goodmorning @user")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task GoodMorningCommand(string goodmorningTo = null)
         {
             if (goodmorningTo != null && goodmorningTo.Equals("here"))
@@ -55,6 +58,7 @@ namespace MegumiBot.Modules
         [Command("goodnight")]
         [Summary("I will say goodnight to you or to someone for you!")]
         [Remarks("~goodnight, ~goodnight here, or ~goodnight @user")]
+        [RequireBotPermission(ChannelPermission.SendMessages)]
         public async Task GoodNightCommand(string goodnightTo = null)
         {
             if (goodnightTo != null && goodnightTo.Equals("here"))

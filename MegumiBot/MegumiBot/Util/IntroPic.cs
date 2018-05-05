@@ -5,7 +5,7 @@ using System.IO;
 
 namespace MegumiBot
 {
-    class IntroPic
+    public class IntroPic
     {
 
         //Declare variable for username

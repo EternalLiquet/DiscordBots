@@ -31,6 +31,11 @@ namespace MegumiBot
                 Directory.CreateDirectory(config.Get("botFilesPath") + config.Get("botAnnouncementPath") + config.Get("botWhereIsLiquetPath"));
             }
 
+            if (!Directory.Exists(config.Get("botFilesPath") + config.Get("botIntroductionFilesPath")))
+            {
+                Directory.CreateDirectory(config.Get("botFilesPath") + config.Get("botIntroductionFilesPath"));
+            }
+
             switch (config.Get("botRunEnvironment"))
             {
                 case "Prod":
