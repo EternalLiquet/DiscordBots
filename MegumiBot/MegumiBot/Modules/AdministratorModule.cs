@@ -72,7 +72,6 @@ namespace MegumiBot.Modules
             {
                 var messagesToDelete = await Context.Channel.GetMessagesAsync(amtOfMessages + 1).Flatten();
                 await Context.Channel.DeleteMessagesAsync(messagesToDelete);
-                await Context.Channel.SendMessageAsync($"{amtOfMessages} message(s) deleted!");
             }
             else
                 await ReplyAsync("An error has occured! Please try again!");
