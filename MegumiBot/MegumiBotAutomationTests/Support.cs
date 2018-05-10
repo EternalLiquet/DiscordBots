@@ -15,13 +15,27 @@ namespace MegumiBotAutomationTests
         public static Dictionary<string, string> c;
         private static string config;
 
-        public static Dictionary<string,string> LoadConfigFile()
+        public static Dictionary<string, string> GetConfigFile()
+        {
+            try
+            {
+                LoadConfigFile();
+                return c;
+            }
+            catch
+            {
+                if (c == null)
+                    throw new Exception("Configuration file not found");
+                return c;
+            }
+        }
+
+        public static void LoadConfigFile()
         {
             AddConfigFileToString();
             c = config.Split('\n')
                 .Select(value => value.Split(':'))
                 .ToDictionary(pair => pair[0].Trim(), pair => pair[1].Trim().Trim('\''));
-            return c;
         }
 
         private static void AddConfigFileToString()

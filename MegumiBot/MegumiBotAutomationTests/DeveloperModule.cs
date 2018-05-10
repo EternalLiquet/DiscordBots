@@ -11,11 +11,12 @@ namespace MegumiBotAutomationTests
     public class DeveloperModule
     {
         string baseDiscordURL = "https://discordapp.com/";
-        Dictionary<string, string> c = Support.LoadConfigFile();
+        Dictionary<string, string> c = Support.GetConfigFile();
 
         [OneTimeSetUp]
         public void SetUpTestAccount()
         {
+            c = Support.GetConfigFile();
             Support.driver = new ChromeDriver();
             Support.driver.Navigate().GoToUrl(baseDiscordURL + c["discordtestserverid"]);
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
@@ -27,6 +28,7 @@ namespace MegumiBotAutomationTests
         [Test]
         public void DevCommandTest()
         {
+            c = Support.GetConfigFile();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~dev");
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
@@ -37,6 +39,7 @@ namespace MegumiBotAutomationTests
         [Test]
         public void SocialMediaCommandTest()
         {
+            c = Support.GetConfigFile();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~socialmedia");
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
@@ -46,6 +49,7 @@ namespace MegumiBotAutomationTests
         [Test]
         public void SupportCommandTest()
         {
+            c = Support.GetConfigFile();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~support");
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
