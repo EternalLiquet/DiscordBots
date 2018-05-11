@@ -57,7 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeveloperModule.cs" />
+    <Compile Include="AnnouncementModuleAutomationTests.cs" />
+    <Compile Include="DeveloperModuleAutomationTests.cs" />
+    <Compile Include="IntroductionPicModuleAutomationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support.cs" />
   </ItemGroup>
