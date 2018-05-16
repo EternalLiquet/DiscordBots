@@ -10,7 +10,6 @@ namespace MegumiBotAutomationTests
     [NonParallelizable]
     public class DeveloperModuleAutomationTests
     {
-        string baseDiscordURL = "https://discordapp.com/";
         Dictionary<string, string> c = Support.GetConfigFile();
 
         [OneTimeSetUp]
@@ -18,11 +17,7 @@ namespace MegumiBotAutomationTests
         {
             c = Support.GetConfigFile();
             Support.driver = new ChromeDriver();
-            Support.driver.Navigate().GoToUrl(baseDiscordURL + c["discordtestserverid"]);
-            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            Support.driver.FindElement(By.Id("register-email")).SendKeys(c["discordemail"]);
-            Support.driver.FindElement(By.Id("register-password")).SendKeys(c["discordpass"]);
-            Support.driver.FindElement(By.Id("register-password")).SendKeys(Keys.Enter);
+            Support.LogInToAdminAccount();
         }
 
         [Test]

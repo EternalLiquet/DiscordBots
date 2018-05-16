@@ -42,13 +42,18 @@ namespace MegumiBot.Modules
         [RequireBotPermission(ChannelPermission.AttachFiles & ChannelPermission.SendMessages)]
         public async Task IntroductionCreationCommand(SocketGuildUser user = null)
         {
+            string avatarURL;
             string guildID = Context.Guild.Id.ToString();
             string settingsFilePath = botIntroductionPath + $"/{guildID}.kato";
             var guildName = Context.Guild.Name;
             if (user == null)
                 user = Context.User as SocketGuildUser;
+            if (user.GetAvatarUrl() == null || user.GetAvatarUrl() == "")
+                avatarURL = "https://storage.googleapis.com/rapid_connect_packages/discordapp.png";
+            else
+                avatarURL = user.GetAvatarUrl();
             Console.WriteLine($"{DateTime.Now.ToString()}: \t{user.Username} has joined {guildName}");
-            await Context.Channel.SendFileAsync(CommandHandler.introPic.createPic(user.Username, guildName, user.GetAvatarUrl(), CommandHandler.megumiPicToUse), $"Welcome to {guildName}, {user.Mention}!", false);
+            await Context.Channel.SendFileAsync(CommandHandler.introPic.createPic(user.Username, guildName, avatarURL, CommandHandler.megumiPicToUse), $"Welcome to {guildName}, {user.Mention}!", false);
             CommandHandler.megumiPicToUse++;
             CommandHandler.megumiPicToUse = CommandHandler.megumiPicToUse % CommandHandler.introPic.megumiPicsLength();
         }

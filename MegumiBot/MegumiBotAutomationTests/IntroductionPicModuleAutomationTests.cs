@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MegumiBotAutomationTests
 {
@@ -11,6 +12,7 @@ namespace MegumiBotAutomationTests
     public class IntroductionPicModuleAutomationTests
     {
         string baseDiscordURL = "https://discordapp.com/";
+        string baseInviteURL = "https://discord.gg/";
         Dictionary<string, string> c = Support.GetConfigFile();
 
         [OneTimeSetUp]
@@ -18,44 +20,43 @@ namespace MegumiBotAutomationTests
         {
             c = Support.GetConfigFile();
             Support.driver = new ChromeDriver();
-            LogInToAdminAccount();
+            Support.LogInToAdminAccount();
         }
 
-        private void LogInToTestAccount()
+        private void LogInToTestAccountAndAcceptInvite()
         {
-            Support.driver.Navigate().GoToUrl(baseDiscordURL + c["discordtestserverid"]);
+            Support.driver.Navigate().GoToUrl(baseInviteURL + c["discordtestinv"]);
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            Support.driver.FindElement(By.Id("register-email")).SendKeys(c["discordtestemail"]);
-            Support.driver.FindElement(By.Id("register-password")).SendKeys(c["discordtestpass"]);
-            Support.driver.FindElement(By.Id("register-password")).SendKeys(Keys.Enter);
+            Support.driver.FindElement(By.XPath("//*[contains(., 'Already have an account?')]")).Click();
+            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("email")).SendKeys(c["discordtestemail"]);
+            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("password")).SendKeys(c["discordpass"]);
+            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("password")).SendKeys(Keys.Enter);
         }
 
-        private void LogInToAdminAccount()
-        {
-            Support.driver.Navigate().GoToUrl(baseDiscordURL + c["discordtestserverid"]);
-            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            Support.driver.FindElement(By.Id("register-email")).SendKeys(c["discordemail"]);
-            Support.driver.FindElement(By.Id("register-password")).SendKeys(c["discordpass"]);
-            Support.driver.FindElement(By.Id("register-password")).SendKeys(Keys.Enter);
-        }
-
-        [Test]
+        [Test, Order(0)]
         public void IntroSetupCommandTest()
         {
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~intro setup");
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
-            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'I've successfully set the introduction channel for Megumi Bot Test Server to \"#general\"!')]")).Displayed);
+            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'successfully set the introduction channel for Megumi Bot Test Server to \"#general\"!')]")).Displayed);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void NewUserEventTest()
         {
-            LogInToTestAccount();
+            Support.driver.Close();
+            Support.driver = new ChromeDriver();
+            LogInToTestAccountAndAcceptInvite();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~intro setup");
-            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
-            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'I've successfully set the introduction channel for Megumi Bot Test Server to \"#general\"!')]")).Displayed);
+            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'Welcome to Megumi Bot Test Server')]")).Displayed);
+        }
+
+        [Test, Order(2)]
+        public void IntroCreateCommandTest()
+        {
+            
         }
 
         [OneTimeTearDown]
