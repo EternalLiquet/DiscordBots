@@ -23,17 +23,6 @@ namespace MegumiBotAutomationTests
             Support.LogInToAdminAccount();
         }
 
-        private void LogInToTestAccountAndAcceptInvite()
-        {
-            Support.driver.Navigate().GoToUrl(baseInviteURL + c["discordtestinv"]);
-            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            Support.driver.FindElement(By.XPath("//*[contains(., 'Already have an account?')]")).Click();
-            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("email")).SendKeys(c["discordtestemail"]);
-            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("password")).SendKeys(c["discordpass"]);
-            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("password")).SendKeys(Keys.Enter);
-        }
-
         [Test, Order(0)]
         public void IntroSetupCommandTest()
         {
@@ -44,19 +33,23 @@ namespace MegumiBotAutomationTests
         }
 
         [Test, Order(1)]
-        public void NewUserEventTest()
+        public void IntroCreateCommandTest()
         {
-            Support.driver.Close();
-            Support.driver = new ChromeDriver();
-            LogInToTestAccountAndAcceptInvite();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'Welcome to Megumi Bot Test Server')]")).Displayed);
+            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~intro create");
+            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
+            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'Welcome to')]")).Displayed);
         }
 
         [Test, Order(2)]
-        public void IntroCreateCommandTest()
+        public void IntroUnsetCommandTest()
         {
-            
+            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~intro unset");
+            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
+            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'successfully unset')]")).Displayed);
         }
 
         [OneTimeTearDown]
