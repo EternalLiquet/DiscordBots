@@ -6,11 +6,10 @@ using System.Collections.Generic;
 
 namespace MegumiBotAutomationTests
 {
-    [TestFixture, Order(0)]
+    [TestFixture]
     [NonParallelizable]
-    public class IntroductionPicModuleAutomationTests
+    public class DeveloperModuleAutomationTests
     {
-        string baseDiscordURL = "https://discordapp.com/";
         Dictionary<string, string> c = Support.GetConfigFile();
 
         [OneTimeSetUp]
@@ -18,36 +17,37 @@ namespace MegumiBotAutomationTests
         {
             c = Support.GetConfigFile();
             Support.driver = new ChromeDriver();
-            DiscordHelpers.LogInToDiscord(c);
+            Support.LogInToAdminAccount();
         }
 
         [Test]
-        public void IntroSetupCommandTest()
+        public void DevCommandTest()
         {
+            c = Support.GetConfigFile();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~intro setup");
+            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~dev");
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
-            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'successfully set the introduction channel for Megumi Bot Test Server to \"#general\"!')]")).Displayed);
+            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., ' is my developer')]")).Displayed);
         }
 
-        [Test, Order(1)]
-        public void IntroCreateCommandTest()
+        [Test]
+        public void SocialMediaCommandTest()
         {
+            c = Support.GetConfigFile();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~intro create");
+            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~socialmedia");
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
-            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'Welcome to')]")).Displayed);
+            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'Feel free to follow my developer')]")).Displayed);
         }
 
-        [Test, Order(2)]
-        public void IntroUnsetCommandTest()
+        [Test]
+        public void SupportCommandTest()
         {
+            c = Support.GetConfigFile();
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~intro unset");
+            Support.driver.FindElement(By.CssSelector("textarea")).SendKeys("~support");
             Support.driver.FindElement(By.CssSelector("textarea")).SendKeys(Keys.Enter);
-            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'successfully unset')]")).Displayed);
+            Assert.True(Support.driver.FindElement(By.XPath("//*[contains(., 'The official support server for Megumi Bot is Cherry Blessing!')]")).Displayed);
         }
 
         [OneTimeTearDown]

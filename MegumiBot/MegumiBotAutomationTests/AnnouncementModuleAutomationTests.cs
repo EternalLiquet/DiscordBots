@@ -10,7 +10,6 @@ namespace MegumiBotAutomationTests
     [NonParallelizable]
     public class AnnouncementModuleAutomationTests
     {
-        string baseDiscordURL = "https://discordapp.com/";
         Dictionary<string, string> c = Support.GetConfigFile();
 
         [OneTimeSetUp]

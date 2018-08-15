@@ -15,6 +15,9 @@ namespace MegumiBotAutomationTests
         public static Dictionary<string, string> c;
         private static string config;
 
+        static string baseDiscordURL = "https://discordapp.com/";
+        static string baseInviteURL = "https://discord.gg/";
+
         public static Dictionary<string, string> GetConfigFile()
         {
             try
@@ -44,6 +47,15 @@ namespace MegumiBotAutomationTests
             StreamReader sr = new StreamReader("MegumiBotTestProperties.kato");
             config += sr.ReadToEnd();
             sr.Close();
+        }
+
+        public static void LogInToAdminAccount()
+        {
+            Support.driver.Navigate().GoToUrl(baseDiscordURL + c["discordtestserverid"]);
+            Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("email")).SendKeys(c["discordemail"]);
+            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("password")).SendKeys(c["discordpass"]);
+            Support.driver.FindElements(By.TagName("input")).First(attr => attr.GetAttribute("type").Equals("password")).SendKeys(Keys.Enter);
         }
     }
 }
