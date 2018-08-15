@@ -21,7 +21,7 @@ namespace MegumiBotAutomationTests
             DiscordHelpers.LogInToDiscord(c);
         }
 
-        [Test]
+        [Test, Order(0)]
         public void IntroSetupCommandTest()
         {
             Support.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
