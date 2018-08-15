@@ -25,7 +25,7 @@ namespace MegumiBotAutomationTests
             catch
             {
                 if (c == null)
-                    throw new Exception("Configuration file not found");
+                    throw new Exception($"Configuration file not found in {Environment.CurrentDirectory}");
                 return c;
             }
         }
